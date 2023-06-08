@@ -10,10 +10,17 @@ app.post('/pizzas', (req, res) => {
 })
 
 app.get('/pizzas/:id', (req, res) => {
-    res.status(200).json({
-        id: req.params.id,
-        name: 'carbonara'
-    })
+    const {id} = req.params;
+    if(id==='1'){
+        res.status(200).json({
+            id,
+            name: 'carbonara'
+        })
+    }
+    else{
+        res.status(404).end('')
+    }
+    
 })
 
 app.get('/pizzas', (req, res) => {
@@ -37,10 +44,12 @@ app.delete('/pizzas/:id', (req, res) => {
 })
 
 const server = app.listen(8080);
+
 (async () => {
     await postPizza();
     await getPizzas();
     await getPizza(1);
+    await getPizza(2);
     await deletePizza(1);
     await upatePizza({
         id: 1,
